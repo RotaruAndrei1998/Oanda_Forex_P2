@@ -49,3 +49,64 @@ vector < double> Function_EMA(vector<double>& arr, double period) {
 
 
 }
+
+void linearRegression(vector<double>& y) {
+    vector<double> x;
+    for (int i = 0; i < y.size(); i++) {
+        x.push_back(i);
+        cout << i;
+    }
+    cout << x.size();
+
+    double sumX = 0;
+    double sumX2 = 0;
+    double sumY = 0;
+    double sumXY = 0;
+    double a, b;
+
+    for (int i = 0; i < x.size(); i++) {
+        sumX = sumX + x[i];
+        sumX2 = sumX2 + x[i] * x[i];
+        sumY = sumY + y[i];
+        sumXY = sumXY + x[i] * y[i];
+    }
+
+    b = (x.size() * sumXY - sumX * sumY) / (x.size() * sumX2 - sumX * sumX);
+    a = (sumY - b * sumX) / x.size();
+
+    cout << "Equation of best fit is: y = " << a << " + " << b << "x";
+
+}
+
+void linearRegressionGradient(vector<double>& y, double it) {
+
+    vector<double> error;
+    vector<double> x;
+    for (int i = 0; i < y.size(); i++) {
+        x.push_back(i);
+    }
+
+    double err;
+    double a = 0;
+    double b = 0;
+    double alpha = 0.01;
+    for (int i = 0; i < x.size() * it; i++) {
+        int idx = i % x.size();
+        double p = a + b * x[idx];    //predictia
+        err = p - y[idx];
+        a = a - alpha * err;
+        b = b - alpha * err * x[idx];
+        cout << a << " " << b << endl;
+     
+    }
+
+
+
+    cout << endl;
+
+    cout << "Final Values are: " << "a=" << a << " " << "b=" << b;
+
+
+
+
+}
